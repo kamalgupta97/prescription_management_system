@@ -5,7 +5,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getIndividualPrescription } from "../Redux/Patient/patientAction";
 
 const useStyles = makeStyles({
   root: {
@@ -30,37 +32,48 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleCard({_id,name,gender,age}) {
+export default function IndividualPrescription({_id,name,gender,age}) {
+    let { id } = useParams();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const history = useHistory()
   const handleClick=(id)=>{
-    history.push(`/${id}`)
+  
   }
+
+  const dispatch = useDispatch()
+  const state = useSelector(state => state)
+  React.useEffect(()=>{
+    dispatch(getIndividualPrescription(id))
+  },[])
+
 
   return (
     <Card className={classes.root}>
+       {
+           console.log(state?.patient?.prescription && state?.patient?.prescription[0].patient_id  )
+       }
       <CardContent>
         <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
         >
-          Name  :  {name}
+          Name  :  {state?.patient?.prescription && state?.patient?.prescription[0].patient_id .name}
         </Typography>
         <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
         >
-          Age  :  {age}
+          Age  :  {state?.patient?.prescription && state?.patient?.prescription[0].patient_id .age}
         </Typography>
         <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
         >
-          Gender  : {gender}
+          Gender  : {state?.patient?.prescription && state?.patient?.prescription[0].patient_id .gender}
         </Typography>
 
         <Typography
@@ -68,8 +81,17 @@ export default function SimpleCard({_id,name,gender,age}) {
           color="textSecondary"
           gutterBottom
         >
-          Number of Medicines
+          Number of Medicines : {state?.patient?.prescription?.length}
         </Typography>
+        <h1>List Of Prescriptions</h1>
+        {
+            // console.log(state)
+        state?.patient?.prescription?.map(item=>  <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+          >{item.medcine_id.name }  {item.quantity}</Typography>)
+        }
       </CardContent>
       <CardActions>
         <Button size="small" onClick={()=>handleClick(_id)}>View More</Button>

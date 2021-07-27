@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
+import IndividualPrescription from '../Components/Individual';
 import { Home } from '../Pages/Home/Home';
 
 export const Routes = () => {
@@ -9,6 +10,9 @@ export const Routes = () => {
          <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route exact path="/:id">
+          <IndividualPrescription />
         </Route>
       
        

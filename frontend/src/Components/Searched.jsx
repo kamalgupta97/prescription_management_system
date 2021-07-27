@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleCard({_id,name,gender,age}) {
+export default function Searched({_id,name,gender,age}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const history = useHistory()
