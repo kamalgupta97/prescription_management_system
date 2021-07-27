@@ -53,7 +53,13 @@ export const Home = () => {
     }
     return (
         <div className={classes.main} >
-            <select name="" id="" onChange={handleSortbyage}>
+         <a href="http://localhost:7777/google">  
+         <Button variant="contained" color="primary">
+        Login
+      </Button>
+      </a>
+          <div>
+          <select name="" id="" onChange={handleSortbyage}>
                 <option value="">Sort By Age</option>
                 <option value="Ascending">Ascending</option>
                 <option value="Descending">Descending</option>
@@ -63,6 +69,7 @@ export const Home = () => {
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
+          </div>
             {
                ` ${sortby} ${filterby}`
             }
